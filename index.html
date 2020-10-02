@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    </head>
-    <body>
-        <main>
-            <p>Github Pages Sample</p>
-            <button type="button" name="aaa" value="aaa">
-                <font size="2">ここを</font><font size="5" color="#333399">押してね</font>
-            </button>
-        </main>
-        <script>
-            console.log('GitHub Pages Sample');
-        </script>
-    </body>
+
+<head>
+</head>
+
+<body>
+    <main>
+        <h2>キルデスビジネスチャットパレット生成</h2>
+        キャラクターシート倉庫のURLを入力<br />
+        <input type="text" id="urlText" size="30" /><br />
+        <input type="button" value="生成" id="makeBtn" onclick="makeChatpallet()" /><br />
+        <br />
+        キャラクターメモ<br />
+        <textarea id="charaBase" readonly cols="60" rows="10"></textarea><br />
+        <br />
+        チャットパレット<br />
+        <textarea id="chatPallet" readonly cols="60" rows="10"></textarea><br />
+    </main>
+    <script>
+        function makeChatpallet() {
+            const url = document.getElementById("urlText").value;
+            const jsonpUrl = url.replace("edit.html?", "display?ajax=1&");
+
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            //jsonp ex) "https://character-sheets.appspot.com/helltv/display?ajax=1&key=ahVzfmNoYXJhY3Rlci1zaGVldHMtbXByFwsSDUNoYXJhY3RlckRhdGEY1dusuAIM&callback=callbackFunc";
+            script.src = jsonpUrl + "&callback=callbackFunc";
+            const parent = document.getElementsByTagName('script')[0];
+            parent.parentNode.insertBefore(script, parent);
+            document.getElementById("charaBase").value = jsonpUrl + "\ntest";
+        }
+
+        callbackFunc = function (jsonData) {
+            document.getElementById("chatPallet").value = jsonData["base"]["name"];
+        };
+
+    </script>
+</body>
+
 </html>
