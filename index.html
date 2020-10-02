@@ -28,11 +28,24 @@
             script.src = jsonpUrl + "&callback=callbackFunc";
             const parent = document.getElementsByTagName('script')[0];
             parent.parentNode.insertBefore(script, parent);
-            document.getElementById("charaBase").value = jsonpUrl + "\ntest";
         }
 
         callbackFunc = function (jsonData) {
-            document.getElementById("chatPallet").value = jsonData["base"]["name"];
+            const baseTxt = "名前：" + jsonData["base"]["name"] + "\n" +
+                "年齢：" + jsonData["base"]["age"] + "\n" +
+                "性別：" + jsonData["base"]["sex"] + "\n" +
+                "戦闘スタイル：" + jsonData["base"]["battlestyle"] + "\n" +
+                "設定：" + "\n" +
+                jsonData["base"]["memo"];
+
+            let cpTxt = "";
+            const MaxLv = 7;
+            for (let lv = 1; lv <= MaxLv; lv++) {
+                cpTxt += "JDx," + lv + " (リスク" + lv + "：" + jsonData["ability"][MaxLv - lv]["name"] + ")\n"
+            }
+
+            document.getElementById("charaBase").value = baseTxt;
+            document.getElementById("chatPallet").value = cpTxt;
         };
 
     </script>
