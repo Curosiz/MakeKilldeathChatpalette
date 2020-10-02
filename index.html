@@ -33,8 +33,10 @@
 
         callbackFunc = function (jsonData) {
             const baseTxt = "名前：" + jsonData["base"]["name"] + "\n" +
-                "年齢：" + jsonData["base"]["age"] + "\n" +
                 "性別：" + jsonData["base"]["sex"] + "\n" +
+                "年齢：" + jsonData["base"]["age"] + "\n" +
+                "願い事：" + jsonData["base"]["wish"] + "\n" + 
+                "キャラ属性：" + jsonData["base"]["attribute"] + "\n" +
                 "戦闘スタイル：" + jsonData["base"]["battlestyle"] + "\n" +
                 "設定：" + "\n" +
                 jsonData["base"]["memo"];
